@@ -4,7 +4,14 @@
       <button>新增标签</button>
     </div>
     <ul class="current">
-      <li @click="changselectedTags" v-for="(item, index) in datatags" :key="index">{{ item }}</li>
+      <li
+        @click="changselectedTags(item)"
+        v-for="item in datatags"
+        :key="item"
+        :class="selectedTags.indexOf(item) >= 0 && 'selected'"
+      >
+        {{ item }}
+      </li>
     </ul>
   </div>
 </template>
@@ -16,8 +23,13 @@ import { Component, Prop } from "vue-property-decorator";
 export default class Tags extends Vue {
   @Prop() datatags: string[] | undefined;
   selectedTags: string[] = [];
-  changselectedTags(event:object){
-    console.log(event); 
+  changselectedTags(item: string) {
+    const index = this.selectedTags.indexOf(item);
+    if (index >= 0) {
+      this.selectedTags.splice(index, 1);
+    } else {
+      this.selectedTags.push(item);
+    }
   }
 }
 </script>
@@ -27,7 +39,7 @@ export default class Tags extends Vue {
   flex-grow: 1;
   padding: 16px;
   font-size: 14px;
-  display: flex; 
+  display: flex;
   flex-direction: column-reverse;
   .current {
     flex-wrap: wrap;
@@ -41,6 +53,10 @@ export default class Tags extends Vue {
       border-radius: 12px;
       background: #d9d9d9;
       margin-top: 4px;
+      &.selected {
+        background: rgb(238, 230, 122);
+        color: rgb(0, 0, 0);
+      }
     }
   }
   .new {
