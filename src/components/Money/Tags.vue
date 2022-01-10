@@ -1,6 +1,7 @@
 <template>
   <div class="tags">
     <div class="new">
+      {{selectedTags}}
       <button>新增标签</button>
     </div>
     <ul class="current">
