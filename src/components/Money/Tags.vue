@@ -1,13 +1,12 @@
 <template>
   <div class="tags">
     <div class="new">
-      {{selectedTags}}
-      <button>新增标签</button>
+      <button @click="newtag">新增标签</button>
     </div>
     <ul class="current">
       <li
         @click="changselectedTags(item)"
-        v-for="item in datatags"
+        v-for="item in dataTags"
         :key="item"
         :class="selectedTags.indexOf(item) >= 0 && 'selected'"
       >
@@ -22,7 +21,7 @@ import Vue from "vue";
 import { Component, Prop } from "vue-property-decorator";
 @Component
 export default class Tags extends Vue {
-  @Prop() datatags: string[] | undefined;
+  @Prop(Array) readonly dataTags: string[] | undefined;
   selectedTags: string[] = [];
   changselectedTags(item: string) {
     const index = this.selectedTags.indexOf(item);
@@ -30,6 +29,15 @@ export default class Tags extends Vue {
       this.selectedTags.splice(index, 1);
     } else {
       this.selectedTags.push(item);
+    }
+  }
+ newtag(){
+    const name =window.prompt("请输入标签名")
+    if(name ===""){
+      window.alert("标签名不能为空")
+    }else if(this.dataTags){
+        this.$emit('update:dataTags',
+        [...this.dataTags,name])
     }
   }
 }
