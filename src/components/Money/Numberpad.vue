@@ -59,12 +59,13 @@ export default class Numberpad extends Vue {
   clear(){
     this.output="0"
   }
-  ok(){
- this.$emit("update:value",this.output)
+  ok(){ 
+   this.$emit("update:value",this.output)
+   this.$emit("sumbit",this.output)
+    this.output="0"
   }
 }
 </script>
-
 <style lang="scss" scoped>
 @import "~@/assets/css/rest.scss";
 @import "~@/assets/css/helper.scss";
