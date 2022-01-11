@@ -30,14 +30,16 @@ export default class Tags extends Vue {
     } else {
       this.selectedTags.push(item);
     }
+      this.$emit("updata:value",this.selectedTags)
   }
- newtag(){
-    const name =window.prompt("请输入标签名")
-    if(name ===""){
-      window.alert("标签名不能为空")
-    }else if(this.dataTags){
-        this.$emit('update:dataTags',
-        [...this.dataTags,name])
+  newtag() {
+    const name = window.prompt("请输入标签名");
+    if (name === "") {
+      window.alert("标签名不能为空");
+    } else if (this.dataTags && this.dataTags.indexOf(name!) >= 0) {
+      window.alert("标签名重复");
+    } else if (this.dataTags) {
+      this.$emit("update:dataTags", [...this.dataTags, name]);
     }
   }
 }
@@ -63,7 +65,7 @@ export default class Tags extends Vue {
       background: #d9d9d9;
       margin-top: 4px;
       &.selected {
-        background: rgb(238, 230, 122);
+        background: #feda46;
         color: rgb(0, 0, 0);
       }
     }
