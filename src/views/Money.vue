@@ -1,8 +1,7 @@
 <template>
   <Layout class-prefix="layout">
-    {{ record }}
-    <Numberpad :value.sync="record.amount" @sumbit="sumbit" />
-    <Types :value.sync="record.type" />
+    <Numberpad :value.sync="RecordItem.amount" @sumbit="sumbit" />
+    <Types :value.sync="RecordItem.type" />
     <Notes @update:value="onUpdateNotes" />
     <Tags :data-tags.sync="tags" @updata:value="onUpdateTags" />
   </Layout>
@@ -14,40 +13,43 @@ import Numberpad from "@/components/Money/Numberpad.vue";
 import Types from "@/components/Money/Types.vue";
 import Notes from "@/components/Money/Notes.vue";
 import Tags from "@/components/Money/Tags.vue";
-type Record = {
-  tags: string[];
-  notes: string;
-  amount: number;
-  type: string;
-};  
+import model from '@/model'
+type RecordItem ={
+    tags: string[];
+    notes: string;
+    amount: number;
+    type: string;
+    creatAt?: Date;
+}
 @Component({
   components: { Numberpad, Types, Notes, Tags },
 })
 export default class Money extends Vue {
   tags = ["衣", "食", "住", "行"];
-  recordList: Record[] = [];
-  record: Record = {
+  RecordItemList =model.fetch()
+
+  RecordItem:RecordItem = {
     tags: [],
     notes: "",
     amount: 0,
     type: "-",
   };
-
   sumbit() {
-    let record2 =JSON.parse(JSON.stringify( this.record))
-    this.recordList.push(record2);
+    let RecordItem2 = JSON.parse(JSON.stringify(this.RecordItem));
+    RecordItem2.creatAt = new Date();
+    this.RecordItemList.push(RecordItem2);
   }
-  @Watch("recordList")
-  onRecordListChange(){
-  localStorage.setItem("recordList", JSON.stringify(this.recordList));
+  @Watch("RecordItemList")
+  onRecordItemListChange() {
+    localStorage.setItem("RecordItemList", JSON.stringify(this.RecordItemList));
   }
   //收集tags数据
   onUpdateTags(value: string[]) {
-    this.record.tags = value;
+    this.RecordItem.tags = value;
   }
   //收集Notes数据
   onUpdateNotes(value: string) {
-    this.record.notes = value;
+    this.RecordItem.notes = value;
   }
 }
 </script>

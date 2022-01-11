@@ -26,7 +26,6 @@ import { Component, Prop } from "vue-property-decorator";
 @Component
 export default class Numberpad extends Vue {
   @Prop() readonly value!:number;
-  // output =this.value.toString()
   output=""
   mounted() {
     this.output=this.value.toString()

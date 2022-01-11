@@ -28,6 +28,7 @@ export default class Notes extends Vue {
   align-items: center;
   .name {
     padding-right: 16px;
+    
   }
   input {
     border: 0;
