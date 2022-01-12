@@ -4,7 +4,6 @@
     <input type="text" placeholder="在这里输入备注" v-model="value" />
   </label>
 </template>
-
 <script lang="ts">
 import Vue from "vue";
 import { Component, Prop, Watch } from "vue-property-decorator";

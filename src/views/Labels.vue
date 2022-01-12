@@ -1,7 +1,9 @@
 <template>
     <div>
        <layout>
-            <div>你好321</div>
+            <div>你好321
+         123213
+            </div>
         </layout>
     </div>
 </template>

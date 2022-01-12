@@ -48,7 +48,7 @@ export default {};
         }
     }
     > .item.cur{
-        color: rgb(192, 154, 0);
+        color: rgb(255, 0, 0);
     }
 }
 
