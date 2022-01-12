@@ -35,13 +35,13 @@ export default class Money extends Vue {
     type: "-",
   };
   sumbit() {
-    let RecordItem2 = JSON.parse(JSON.stringify(this.RecordItem));
+    let RecordItem2 =  JSON.parse(JSON.stringify(this.RecordItem));
     RecordItem2.creatAt = new Date();
     this.RecordItemList.push(RecordItem2);
   }
   @Watch("RecordItemList")
   onRecordItemListChange() {
-    localStorage.setItem("RecordItemList", JSON.stringify(this.RecordItemList));
+    model.save(this.RecordItemList)
   }
   //收集tags数据
   onUpdateTags(value: string[]) {
