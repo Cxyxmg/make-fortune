@@ -6,7 +6,7 @@
           <span class="rigthicon"></span>
     </div>
     <div class="waper">
-    <Notes :fieldName="'标签名'" :placeholder="'请输入标签名'"/>
+    <Notes :fieldName="'标签名'" :placeholder="'请输入标签名'" :value="tag.name"/>
     </div>
     <div class="btnwaper">
     <Button> 删除标签</Button>
@@ -28,14 +28,14 @@ import taglistmode from "../models/tagslistmode"
     }
 })
  export default class EditLable extends Vue{
-     
+     tag ? :{id:string ,name :string}=undefined
      created(){
          const id=this.$route.params.id
          taglistmode.fetch()
          const tags =taglistmode.data
          const tag =tags.filter(item =>item.id ===id)[0]
          if(tag){
-             console.log(tag);
+             this.tag=tag
              
          }else{
              this.$router.replace("/404")
