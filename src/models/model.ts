@@ -8,7 +8,7 @@ const model={
         return  JSON.parse(window.localStorage.getItem(localStorageKeyName)||"[]") as RecordItem[]
     },
     save(data:RecordItem[]){
-        localStorage.setItem("RecordItemList", JSON.stringify(data));
+        localStorage.setItem(localStorageKeyName, JSON.stringify(data));
     }
 }
 export default model

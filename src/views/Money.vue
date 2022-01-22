@@ -23,7 +23,7 @@ type RecordItem ={
     type: string;
     creatAt?: Date;
 }
-const recordlist :RecordItem[] =model.fetch()
+// const recordlist :RecordItem[] =model.fetch()
 const tagslist =taglistmode.fetch()
 @Component({
   components: { Numberpad, Types, Notes, Tags },

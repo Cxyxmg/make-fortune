@@ -2,8 +2,8 @@
     <div>
        <layout>
           <ol class="tags">
-              <li v-for="item in tags" :key="item"> 
-                  {{item}}
+              <li v-for="item in tags" :key="item.id"> 
+                  {{item.name}}
                     <Icon name="rigth" />
               </li>
             

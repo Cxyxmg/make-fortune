@@ -9,10 +9,10 @@
       <li
         @click="changselectedTags(item)"
         v-for="item in dataTags"
-        :key="item"
+        :key="item.id"
         :class="selectedTags.indexOf(item) >= 0 && 'selected'"
       >
-        {{ item }}
+        {{ item.name }}
       </li>
     </ul>
   </div>
