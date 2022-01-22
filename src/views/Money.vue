@@ -9,11 +9,13 @@
 <script lang="ts">
 import Vue from "vue";
 import { Component, Watch } from "vue-property-decorator";
-import Numberpad from "@/components/Money/Numberpad.vue";
-import Types from "@/components/Money/Types.vue";
-import Notes from "@/components/Money/Notes.vue";
-import Tags from "@/components/Money/Tags.vue";
-import model from '@/model'
+import Numberpad from "../components/Money/Numberpad.vue";
+import Types from "..//components/Money/Types.vue";
+import Notes from "..//components/Money/Notes.vue";
+import Tags from "../components/Money/Tags.vue";
+import model from "../models/model" ;
+import taglistmode from "../models/tagslistmode"
+
 type RecordItem ={
     tags: string[];
     notes: string;
@@ -21,11 +23,13 @@ type RecordItem ={
     type: string;
     creatAt?: Date;
 }
+const recordlist :RecordItem[] =model.fetch()
+const tagslist =taglistmode.fetch()
 @Component({
   components: { Numberpad, Types, Notes, Tags },
 })
 export default class Money extends Vue {
-  tags = ["衣", "食", "住", "行"];
+  tags =tagslist
   RecordItemList =model.fetch()
 
   RecordItem:RecordItem = {

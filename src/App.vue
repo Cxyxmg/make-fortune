@@ -10,6 +10,7 @@
  @import "~@/assets/css/helper.scss";
 body{
     line-height: 1.5;
+    background: #f5f5f5;
   }
 
 </style>
