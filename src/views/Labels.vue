@@ -8,7 +8,7 @@
               </router-link>
           </div>
           <div class="createtag-waper">
-              <button class="createtag" @click="createtag">新建标签</button>
+              <Button  class="createtag" @click="createtag">新建标签</Button>
           </div>
         </layout>
     </div>
@@ -18,10 +18,15 @@
 import Vue from "vue"
 import { Component } from "vue-property-decorator";
 import taglistmode from "../models/tagslistmode"
+import Button from "@/components/Button.vue"
 
 taglistmode.fetch()
 
-@Component
+@Component({
+    components:{
+        Button
+    }
+})
  export default class Labels extends Vue{
      tags=taglistmode.data
      createtag(){

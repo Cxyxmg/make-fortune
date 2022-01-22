@@ -2,7 +2,9 @@
   <Layout class-prefix="layout">
     <Numberpad :value.sync="RecordItem.amount" @sumbit="sumbit" />
     <Types :value.sync="RecordItem.type" />
+    <div class="Noteswaper">
     <Notes @update:value="onUpdateNotes" fieldName="备注" placeholder="在这里输入备注"/>
+    </div>
     <Tags :data-tags.sync="tags" @updata:value="onUpdateTags" />
   </Layout>
 </template>
@@ -62,6 +64,7 @@ export default class Money extends Vue {
   display: flex;
   flex-direction: column-reverse;
 }
-</style>
-<style lang="scss" scoped>
+.Noteswaper{
+  padding: 12px 0;
+}
 </style>
