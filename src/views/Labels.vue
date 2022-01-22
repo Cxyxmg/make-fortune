@@ -1,13 +1,12 @@
 <template>
     <div>
        <layout>
-          <ol class="tags">
-              <li v-for="item in tags" :key="item.id"> 
+          <div class="tags">
+              <router-link :to="`/labels/edit/${item.id}`" v-for="item in tags" :key="item.id" class="tag"> 
                   {{item.name}}
                     <Icon name="rigth" />
-              </li>
-            
-          </ol>
+              </router-link>
+          </div>
           <div class="createtag-waper">
               <button class="createtag" @click="createtag">新建标签</button>
           </div>
@@ -44,7 +43,7 @@ taglistmode.fetch()
     background: white;
     font-size: 16px;
     padding-left: 16px;
-    li{
+    .tag{
         min-height: 44px;
         display: flex;
         align-items: center;
