@@ -13,10 +13,7 @@ type taglistmode = {
 }
 
 const taglistmode = {
-    data: [{
-        id: "",
-        name: ""
-    }],
+    data: [] as Tag[],
     fetch() {
         this.data = JSON.parse(window.localStorage.getItem("RecordItemList") || "[]")
         return this.data
