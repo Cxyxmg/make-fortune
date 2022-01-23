@@ -1,15 +1,15 @@
 <template>
   <layout>
       <div class="navBar">
-          <Icon name="left" class="lefticon"/>
+          <Icon name="left" class="lefticon" @click.native="goback"/>
           <span class="title">编辑标签</span>
           <span class="rigthicon"></span>
     </div>
     <div class="waper">
-    <Notes :fieldName="'标签名'" :placeholder="'请输入标签名'" :value="tag.name"/>
+    <Notes :fieldName="'标签名'" :placeholder="'请输入标签名'" :value="tag.name" @update:value="updateTag"/>
     </div>
     <div class="btnwaper">
-    <Button> 删除标签</Button>
+    <Button @click.native="remove"> 删除标签</Button>
     </div>
   </layout>
 </template>
@@ -21,6 +21,7 @@ import Notes from "../components/Money/Notes.vue"
 import Button from "../components/Button.vue"
 import { Component } from "vue-property-decorator";
 import taglistmode from "../models/tagslistmode"
+
 @Component({
     components:{
         Notes,
@@ -29,17 +30,35 @@ import taglistmode from "../models/tagslistmode"
 })
  export default class EditLable extends Vue{
      tag ? :{id:string ,name :string}=undefined
+     
      created(){
          const id=this.$route.params.id
          taglistmode.fetch()
          const tags =taglistmode.data
          const tag =tags.filter(item =>item.id ===id)[0]
-         if(tag){
+         if(tag){ 
              this.tag=tag
-             
+            
          }else{
              this.$router.replace("/404")
          }
+     }
+     updateTag(name:string){
+         if(this.tag){
+             taglistmode.updata(this.tag.id ,name)
+         }
+     }
+     remove(){
+         if(this.tag){
+             if(taglistmode.remove(this.tag.id)){
+                 this.$router.back()
+             }else{
+                 alert("删除失败")
+             }
+         }
+     }
+     goback(){
+          this.$router.back()
      }
  }
 </script>
