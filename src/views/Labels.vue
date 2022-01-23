@@ -20,7 +20,7 @@ import { Component } from "vue-property-decorator";
 import taglistmode from "../models/tagslistmode"
 import Button from "@/components/Button.vue"
 
-taglistmode.fetch()
+
 
 @Component({
     components:{
@@ -28,16 +28,11 @@ taglistmode.fetch()
     }
 })
  export default class Labels extends Vue{
-     tags=taglistmode.data
+     tags=window.tagList
      createtag(){
          const name =window.prompt("请输入标签名")
          if(name){
-           const message =taglistmode.create(name)
-           if(message==="duplicated"){
-               window.alert("标签名重复了")
-           }else if(message==="success"){
-                window.alert("添加成功")
-           }
+             window.createTag(name)
          }
      }
  }

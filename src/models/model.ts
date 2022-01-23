@@ -1,4 +1,4 @@
-const localStorageKeyName ='RecordItemList'
+const localStorageKeyName ='List'
 const model={
     clone(data:RecordItem[] |RecordItem){
         return JSON.parse(JSON.stringify(data))

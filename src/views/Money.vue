@@ -26,13 +26,12 @@ type RecordItem ={
     type: string;
     creatAt?: Date;
 }
-// const recordlist :RecordItem[] =model.fetch()
-const tagslist =taglistmode.fetch()
+
 @Component({
   components: { Numberpad, Types, Notes, Tags },
 })
 export default class Money extends Vue {
-  tags =tagslist
+  tags =window.tagList
   RecordItemList =model.fetch()
 
   RecordItem:RecordItem = {

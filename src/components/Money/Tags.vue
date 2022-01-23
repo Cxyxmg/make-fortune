@@ -41,7 +41,9 @@ export default class Tags extends Vue {
     } else if (this.dataTags && this.dataTags.indexOf(name!) >= 0) {
       window.alert("标签名重复");
     } else if (this.dataTags) {
-      this.$emit("update:dataTags", [...this.dataTags, name]);
+      alert("添加成功")
+      
+      // this.$emit("update:dataTags", [...this.dataTags, name]);
     }
   }
 }
