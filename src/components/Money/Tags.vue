@@ -8,7 +8,7 @@
     <ul class="current">
       <li
         @click="changselectedTags(item)"
-        v-for="item in dataTags"
+        v-for="item in tagList"
         :key="item.id"
         :class="selectedTags.indexOf(item) >= 0 && 'selected'"
       >
@@ -19,11 +19,12 @@
 </template>
 
 <script lang="ts">
+import store from "@/store/index2";
 import Vue from "vue";
 import { Component, Prop } from "vue-property-decorator";
 @Component
 export default class Tags extends Vue {
-  @Prop(Array) readonly dataTags: string[] | undefined;
+   tagList=store.fetchTags()
   selectedTags: string[] = [];
   changselectedTags(item: string) {
     const index = this.selectedTags.indexOf(item);
@@ -36,14 +37,11 @@ export default class Tags extends Vue {
   }
   newtag() {
     const name = window.prompt("请输入标签名");
-    if (name === "") {
-      window.alert("标签名不能为空");
-    } else if (this.dataTags && this.dataTags.indexOf(name!) >= 0) {
-      window.alert("标签名重复");
-    } else if (this.dataTags) {
-      alert("添加成功")
-      // this.$emit("update:dataTags", [...this.dataTags, name]);
-    }
+    if (!name) {
+      return   window.alert("标签名不能为空");
+    } 
+      store.createTag(name)
+    
   }
 }
 </script>

@@ -6,12 +6,12 @@
     <Notes @update:value="onUpdateNotes" fieldName="备注" placeholder="在这里输入备注"/>
     </div>
     
-    <Tags :data-tags.sync="tags" @updata:value="onUpdateTags" />
+    <Tags   />
   </Layout>
 </template>
 <script lang="ts">
 import Vue from "vue";
-import { Component, Watch } from "vue-property-decorator";
+import { Component } from "vue-property-decorator";
 import Numberpad from "../components/Money/Numberpad.vue";
 import Types from "..//components/Money/Types.vue";
 import Notes from "..//components/Money/Notes.vue";
@@ -30,7 +30,6 @@ type RecordItem ={
   components: { Numberpad, Types, Notes, Tags },
 })
 export default class Money extends Vue {
-  tags =store.tagList
   RecordItemList =store.recordList
 
   RecordItem:RecordItem = {
@@ -39,10 +38,7 @@ export default class Money extends Vue {
     amount: 0,
     type: "-",
   };
-  //收集tags数据
-  onUpdateTags(value: string[]) {
-    this.RecordItem.tags = value;
-  }
+
   //收集Notes数据
   onUpdateNotes(value: string) {
     this.RecordItem.notes = value;
