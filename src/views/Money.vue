@@ -1,6 +1,6 @@
 <template>
   <Layout class-prefix="layout">
-    <Numberpad :value.sync="RecordItem.amount" @sumbit="sumbit" />
+    <Numberpad :value.sync="RecordItem.amount" @sumbit="saveRecord" />
     <Types :value.sync="RecordItem.type" />
     <div class="Noteswaper">
     <Notes @update:value="onUpdateNotes" fieldName="备注" placeholder="在这里输入备注"/>
@@ -16,8 +16,7 @@ import Numberpad from "../components/Money/Numberpad.vue";
 import Types from "..//components/Money/Types.vue";
 import Notes from "..//components/Money/Notes.vue";
 import Tags from "../components/Money/Tags.vue";
-import model from "../models/model" ;
-import taglistmode from "../models/tagslistmode"
+import store from "@/store/index2";
 
 type RecordItem ={
     tags: string[];
@@ -31,8 +30,8 @@ type RecordItem ={
   components: { Numberpad, Types, Notes, Tags },
 })
 export default class Money extends Vue {
-  tags =window.tagList
-  RecordItemList =model.fetch()
+  tags =store.tagList
+  RecordItemList =store.recordList
 
   RecordItem:RecordItem = {
     tags: [],
@@ -40,15 +39,6 @@ export default class Money extends Vue {
     amount: 0,
     type: "-",
   };
-  sumbit() {
-    let RecordItem2 =  JSON.parse(JSON.stringify(this.RecordItem));
-    RecordItem2.creatAt = new Date();
-    this.RecordItemList.push(RecordItem2);
-  }
-  @Watch("RecordItemList")
-  onRecordItemListChange() {
-    model.save(this.RecordItemList)
-  }
   //收集tags数据
   onUpdateTags(value: string[]) {
     this.RecordItem.tags = value;
@@ -56,6 +46,9 @@ export default class Money extends Vue {
   //收集Notes数据
   onUpdateNotes(value: string) {
     this.RecordItem.notes = value;
+  }
+  saveRecord(){
+    store.createRecord(this.RecordItem)
   }
 }
 </script>

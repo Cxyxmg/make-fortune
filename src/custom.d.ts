@@ -1,5 +1,5 @@
 
-type RecordItem ={
+type RecordItem = {
     tags: string[];
     notes: string;
     amount: number;
@@ -16,12 +16,16 @@ type taglistmode = {
     create: (name: string) => "success" | "duplicated" //success 表示成功  duplicated 表示名字重复
     updata: (id: string, name: string) => "success" | "duplicated" | "not found"
     save: () => void
-    remove:(id:string)=>boolean
+    remove: (id: string) => boolean
 }
 interface Window {
-    tagList :Tag[],
-    createTag:(name:string)=> void,
-    removeTag:(id:string)=>boolean
-    updateTag:(id:string,name:string)=> "success" | "duplicated" | "not found"
-    findTag:(id:string) =>Tag
+    store:{
+        tagList: Tag[],
+        createTag: (name: string) => void,
+        removeTag: (id: string) => boolean
+        updateTag: (id: string, name: string) => "success" | "duplicated" | "not found"
+        findTag: (id: string) => Tag
+        recordList: RecordItem[]
+        createRecord:(recrod:RecordItem)=>void
+    }
 }

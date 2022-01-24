@@ -17,8 +17,9 @@
 <script lang="ts">
 import Vue from "vue"
 import { Component } from "vue-property-decorator";
-import taglistmode from "../models/tagslistmode"
+
 import Button from "@/components/Button.vue"
+import store from "@/store/index2";
 
 
 
@@ -28,11 +29,11 @@ import Button from "@/components/Button.vue"
     }
 })
  export default class Labels extends Vue{
-     tags=window.tagList
+     tags=store.tagList
      createtag(){
          const name =window.prompt("请输入标签名")
          if(name){
-             window.createTag(name)
+             store.createTag(name)
          }
      }
  }
