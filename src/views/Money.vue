@@ -1,12 +1,16 @@
 <template>
   <Layout class-prefix="layout">
-    <Numberpad :value.sync="RecordItem.amount" @sumbit="saveRecord" />
-    <Types :value.sync="RecordItem.type" />
+    <Numberpad :value.sync="record.amount" @sumbit="saveRecord" />
+    <Types :value.sync="record.type" />
     <div class="Noteswaper">
-    <Notes @update:value="onUpdateNotes" fieldName="备注" placeholder="在这里输入备注"/>
+      <Notes
+        @update:value="onUpdateNotes"
+        fieldName="备注"
+        placeholder="在这里输入备注"
+      />
     </div>
-    
-    <Tags   />
+
+    <Tags />
   </Layout>
 </template>
 <script lang="ts">
@@ -16,35 +20,39 @@ import Numberpad from "../components/Money/Numberpad.vue";
 import Types from "..//components/Money/Types.vue";
 import Notes from "..//components/Money/Notes.vue";
 import Tags from "../components/Money/Tags.vue";
-import store from "@/store/index2";
 
-type RecordItem ={
-    tags: string[];
-    notes: string;
-    amount: number;
-    type: string;
-    creatAt?: Date;
-}
+type RecordItem = {
+  tags: string[];
+  notes: string;
+  amount: number;
+  type: string;
+  creatAt?: Date;
+};
 
 @Component({
   components: { Numberpad, Types, Notes, Tags },
+  computed: {
+    recordList() {
+      return this.$store.state.recordList;
+    },
+  },
 })
 export default class Money extends Vue {
-  RecordItemList =store.recordList
-
-  RecordItem:RecordItem = {
+  record: RecordItem = {
     tags: [],
     notes: "",
     amount: 0,
     type: "-",
   };
-
+  created() {
+    this.$store.commit("fetchrecords");
+  }
   //收集Notes数据
   onUpdateNotes(value: string) {
-    this.RecordItem.notes = value;
+    this.record.notes = value;
   }
-  saveRecord(){
-    store.createRecord(this.RecordItem)
+  saveRecord() {
+    this.$store.commit("createRecord", this.record);
   }
 }
 </script>
@@ -53,7 +61,7 @@ export default class Money extends Vue {
   display: flex;
   flex-direction: column-reverse;
 }
-.Noteswaper{
+.Noteswaper {
   padding: 12px 0;
 }
 </style>

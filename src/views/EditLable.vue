@@ -20,7 +20,6 @@ import Vue from "vue"
 import Notes from "../components/Money/Notes.vue"
 import Button from "../components/Button.vue"
 import { Component } from "vue-property-decorator";
-import store from "@/store/index2";
 @Component({
     components:{
         Notes,
@@ -30,7 +29,7 @@ import store from "@/store/index2";
  export default class EditLable extends Vue{
      tag ? :{id:string ,name :string}=undefined
      created(){     
-         this.tag =store.findTag(this.$route.params.id)
+        //  this.tag =store.findTag(this.$route.params.id)
          if(!this.tag){ 
 
              this.$router.replace("/404")
@@ -38,17 +37,17 @@ import store from "@/store/index2";
      }
      updateTag(name:string){
          if(this.tag){
-             store.updateTag(this.tag.id ,name)
+            //  store.updateTag(this.tag.id ,name)
          }
      }
      remove(){
-         if(this.tag){
-             if(store.removeTag(this.tag.id)){
-                 this.$router.back()
-             }else{
-                 alert("删除失败")
-             }
-         }
+        //  if(this.tag){
+        //      if(store.removeTag(this.tag.id)){
+        //          this.$router.back()
+        //      }else{
+        //          alert("删除失败")
+        //      }
+        //  }
      }
      goback(){
           this.$router.back()

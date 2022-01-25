@@ -19,13 +19,20 @@
 </template>
 
 <script lang="ts">
-import store from "@/store/index2";
 import Vue from "vue";
-import { Component, Prop } from "vue-property-decorator";
-@Component
+import { Component } from "vue-property-decorator";
+@Component({
+  computed:{
+    tagList(){
+      return  this.$store.state.tagList
+    }
+  }
+})
 export default class Tags extends Vue {
-   tagList=store.fetchTags()
   selectedTags: string[] = [];
+  created(){
+    this.$store.commit("fetchTags")
+  }
   changselectedTags(item: string) {
     const index = this.selectedTags.indexOf(item);
     if (index >= 0) {
@@ -40,7 +47,7 @@ export default class Tags extends Vue {
     if (!name) {
       return   window.alert("标签名不能为空");
     } 
-      store.createTag(name)
+   this.$store.commit("createTag",name)
     
   }
 }
