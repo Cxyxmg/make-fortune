@@ -24,30 +24,32 @@ import { Component } from "vue-property-decorator";
     components:{
         Notes,
         Button
-    }
+    },
+
 })
  export default class EditLable extends Vue{
-     tag ? :{id:string ,name :string}=undefined
+     get tag(){
+         return this.$store.state.currentTag
+     }
      created(){     
-        //  this.tag =store.findTag(this.$route.params.id)
+         const id=this.$route.params.id
+         this.$store.commit("fetchTags")
+         this.$store.commit("setCurrentTag" ,id)
          if(!this.tag){ 
-
              this.$router.replace("/404")
          }
      }
      updateTag(name:string){
+         const payload={id:this.tag.id,name}
          if(this.tag){
-            //  store.updateTag(this.tag.id ,name)
+           this.$store.commit("updateTag",payload)
          }
      }
      remove(){
-        //  if(this.tag){
-        //      if(store.removeTag(this.tag.id)){
-        //          this.$router.back()
-        //      }else{
-        //          alert("删除失败")
-        //      }
-        //  }
+         if(this.tag){
+           this.$store.commit("removeTag" ,this.tag.id  )
+         }
+           this.$router.back()
      }
      goback(){
           this.$router.back()
