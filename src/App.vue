@@ -12,5 +12,7 @@ body{
     line-height: 1.5;
     background: #f5f5f5;
   }
-
+h3{
+  font-weight: normal;
+}
 </style>

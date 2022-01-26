@@ -25,7 +25,6 @@ import { Component } from "vue-property-decorator";
         Notes,
         Button
     },
-
 })
  export default class EditLable extends Vue{
      get tag(){

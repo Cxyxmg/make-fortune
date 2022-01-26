@@ -1,7 +1,7 @@
 <template>
   <Layout class-prefix="layout">
     <Numberpad :value.sync="record.amount" @sumbit="saveRecord" />
-    <Types :value.sync="record.type" />
+    <tab :dataSoure="array2" :value.sync="record.type"/>
     <div class="Noteswaper">
       <Notes
         @update:value="onUpdateNotes"
@@ -17,7 +17,7 @@
 import Vue from "vue";
 import { Component } from "vue-property-decorator";
 import Numberpad from "../components/Money/Numberpad.vue";
-import Types from "..//components/Money/Types.vue";
+import tab from "../components/Tab.vue"
 import Notes from "..//components/Money/Notes.vue";
 import Tags from "../components/Money/Tags.vue";
 
@@ -30,7 +30,7 @@ type RecordItem = {
 };
 
 @Component({
-  components: { Numberpad, Types, Notes, Tags },
+  components: { Numberpad, tab, Notes, Tags },
 })
 export default class Money extends Vue {
   record: RecordItem = {
@@ -39,6 +39,10 @@ export default class Money extends Vue {
     amount: 0,
     type: "-",
   };
+     array2=[
+        {text:"支出",value:"-"},
+        {text:"收入",value:"+"},
+     ]
   get   recordList() {
       return this.$store.state.recordList;
     }

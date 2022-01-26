@@ -17,7 +17,7 @@ export default new Vuex.Store({
   } as RootState,
   mutations: {
     fetchrecords(state) {
-      state.recordList = JSON.parse(window.localStorage.getItem("List") || "[]") as RecordItem[]
+      state.recordList = JSON.parse(window.localStorage.getItem("recordList") || "[]") as RecordItem[]
     },
     setCurrentTag(state, id) {
       state.currentTag = state.tagList.filter(item => item.id === id)[0]
@@ -51,10 +51,10 @@ export default new Vuex.Store({
       const record2: RecordItem = clone(record)
       record2.creatAt = new Date()
       state.recordList.push(record2)
-      localStorage.setItem("List", JSON.stringify(state.recordList));
+      localStorage.setItem("recordList", JSON.stringify(state.recordList));
     },
     saverecords(state) {
-      localStorage.setItem("List", JSON.stringify(state.recordList));
+      localStorage.setItem("recordList", JSON.stringify(state.recordList));
     },
     fetchTags(state) {
       return state.tagList = JSON.parse(window.localStorage.getItem("tagList") || "[]")
