@@ -1,12 +1,11 @@
 <template>
   <layout>
     <tab class-prefix="types" :dataSoure="array2" :value.sync="types" />
-    <tab class-prefix="interval" :dataSoure="arrya" :value.sync="interval" />
     <ol>
-      <li v-for="(item, index) in result" :key="index">
-        <h3 class="title">{{ item.title }}</h3>
+      <li v-for="(group, index) in result" :key="index">
+        <h3 class="title">{{ beautify( group.title )}} <span>￥{{group.total}}</span></h3>
         <ol>
-          <li v-for="item2 in item.item" :key="item2.id" class="record">
+          <li v-for="item2 in group.items" :key="item2.id" class="record">
             <span>{{ tagString(item2.tags) }}</span>
             <span class="notes">{{ item2.notes }}</span>
             <span>￥{{ item2.amount }}</span>
@@ -21,6 +20,8 @@
 import Vue from "vue";
 import { Component } from "vue-property-decorator";
 import tab from "@/components/Tab.vue";
+import dayjs from "dayjs"
+import clone from "@/lib/clone"
 @Component({
   components: {
     tab,
@@ -30,33 +31,54 @@ export default class Statistics extends Vue {
   tagString(tags: Tag[]) {
     return tags.length === 0 ? "无" : tags.join(",");
   }
+  beautify(string:string){
+    const now =dayjs()
+    if(dayjs(string).isSame(now,'day')){
+      return "今天"
+    }else if(dayjs(string).isSame(now.subtract(1,'day'),'day')){
+      return '昨天'
+    }else if(dayjs(string).isSame(now.subtract(2,'day'),'day')){
+      return "前天"
+    }else if(dayjs(string).isSame(now,'year')){
+      return dayjs(string).format("M月D日")
+    }
+    else{
+      return dayjs(string).format("YYYY年M月D日")
+    }
+   
+
+
+  }
   get recordList() {
     return this.$store.state.recordList;
   }
   get result() {
     const { recordList } = this;
-
-    type Item = RecordItem[];
-    type HashTableitem = { title: string; item: Item };
-    const hashTable: { [ket: string]: HashTableitem } = {};
-    for (let i = 0; i < recordList.length; i++) {
-      const date = recordList[i].creatAt.split("T")[0];
-      hashTable[date] = hashTable[date] || { title: date, item: [] };
-      hashTable[date].item.push(recordList[i]);
+    if(recordList.length ===0){return []}
+    const newlist = clone(recordList).filter(r =>r.type===this.types).sort((a:any,b:any)=>dayjs(b.creatAt).valueOf()-dayjs(a.creatAt).valueOf())
+   type grou={title:string ,total?:number ,items:RecordItem[]}[]
+   const groupedList:grou=[{title:dayjs(newlist[0].creatAt).format('YYYY-M-D'),items:[newlist[0]]}]
+    for(let i =1 ;i<newlist.length ;i++){
+      const current =newlist[i]
+      const last =groupedList[groupedList.length-1]
+       if(dayjs(last.title).isSame(dayjs(current.creatAt),'day')){
+         last.items.push(current)
+       }else{
+         groupedList.push({title:dayjs(newlist[i].creatAt).format('YYYY-M-D'),items:[current]})
+       }
     }
-    console.log(hashTable);
-    return hashTable;
+    groupedList.map(group =>{
+      group.total=group.items.reduce((sum,item)=>{
+      
+        return sum +item.amount},0)
+      })
+
+   return groupedList
   }
   mounted() {
     this.$store.commit("fetchrecords");
   }
   types = "-";
-  interval = "day";
-  arrya = [
-    { text: "按天", value: "day" },
-    { text: "按周", value: "week" },
-    { text: "按月", value: "month" },
-  ];
   array2 = [
     { text: "支出", value: "-" },
     { text: "收入", value: "+" },
@@ -66,9 +88,9 @@ export default class Statistics extends Vue {
 
 <style lang="scss" scoped>
 ::v-deep .types-item {
-  background: white;
+  background: #c4c4c4;
   &.selected {
-    background: #c4c4c4;
+    background: white;
     &::after {
       display: none;
     }

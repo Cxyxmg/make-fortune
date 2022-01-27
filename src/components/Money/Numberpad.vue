@@ -25,7 +25,7 @@ import Vue from "vue";
 import { Component, Prop } from "vue-property-decorator";
 @Component
 export default class Numberpad extends Vue {
-  @Prop() readonly value!:number;
+  @Prop(Number) readonly value!:number;
   output=""
   mounted() {
     this.output=this.value.toString()
@@ -59,8 +59,8 @@ export default class Numberpad extends Vue {
     this.output="0"
   }
   ok(){ 
-   this.$emit("update:value",this.output)
-   this.$emit("sumbit",this.output)
+   this.$emit("update:value",parseFloat(this.output) )
+   this.$emit("sumbit",parseFloat(this.output))
     this.output="0"
   }
 }
