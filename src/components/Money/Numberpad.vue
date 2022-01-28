@@ -93,33 +93,34 @@ export default class Numberpad extends Vue {
       &.zero {
         width: 25 * 2%;
       }
+      
       &:nth-child(1) {
-        background: #f2f2f2;
+        border: 1px  darken(#f2f2f2, 20%) solid;
       }
       &:nth-child(2),
       &:nth-child(5) {
-        background: darken(#f2f2f2, 4%);
+         border: 1px  darken(#f2f2f2, 20%) solid;
       }
       &:nth-child(3),
       &:nth-child(6),
       &:nth-child(9) {
-        background: darken(#f2f2f2, 4 * 2%);
+         border: 1px  darken(#f2f2f2, 20%) solid;
       }
       &:nth-child(4),
       &:nth-child(7),
       &:nth-child(10) {
-        background: darken(#f2f2f2, 4 * 3%);
+         border: 1px  darken(#f2f2f2, 20%) solid;
       }
       &:nth-child(8),
       &:nth-child(11),
       &:nth-child(13) {
-        background: darken(#f2f2f2, 4 * 4%);
+         border: 1px  darken(#f2f2f2, 20%) solid;
       }
       &:nth-child(14) {
-        background: darken(#f2f2f2, 4 * 5%);
+         border: 1px  darken(#f2f2f2, 20%) solid;
       }
       &:nth-child(12) {
-        background: darken(#f2f2f2, 4 * 6%);
+         border: 1px  darken(#f2f2f2, 20%) solid;
       }
     }
   }

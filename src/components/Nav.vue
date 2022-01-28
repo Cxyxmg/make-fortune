@@ -2,7 +2,7 @@
   <nav class="nav">
     <router-link to="/money" class="item" active-class="cur">
       <Icon name="money" />
-      记账 </router-link
+      记一笔 </router-link
     >
     <router-link to="/labels"  class="item" active-class="cur">
       <Icon name="label" />
@@ -10,7 +10,7 @@
     </router-link>
     <router-link to="/statistics"  class="item" active-class="cur">
       <Icon name="statistics" />
-      统计
+      流水
     </router-link>
   </nav>
 </template>

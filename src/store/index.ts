@@ -52,6 +52,7 @@ export default new Vuex.Store({
       record2.creatAt = new Date()
       state.recordList.push(record2)
       localStorage.setItem("recordList", JSON.stringify(state.recordList));
+      window.alert("已保存")
     },
     saverecords(state) {
       localStorage.setItem("recordList", JSON.stringify(state.recordList));

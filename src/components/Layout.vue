@@ -1,5 +1,4 @@
 <template>
-     <!-- 公共部分做成组件使用，不同部分使用插槽显示 -->
   <div class="layout-waper">
     <div class="content" :class="classPrefix && `${classPrefix}-content`">
         <slot></slot>

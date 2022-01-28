@@ -32,6 +32,7 @@ export default class Tags extends Vue {
     this.$store.commit("fetchTags")
   }
   changselectedTags(item: string) {
+    
     const index = this.selectedTags.indexOf(item);
     if (index >= 0) {
       this.selectedTags.splice(index, 1);
@@ -46,7 +47,6 @@ export default class Tags extends Vue {
       return   window.alert("标签名不能为空");
     } 
    this.$store.commit("createTag",name)
-    
   }
 }
 </script>
@@ -72,8 +72,8 @@ export default class Tags extends Vue {
       background: #c3c3c3;
       margin-top: 4px;
       &.selected {
-        background: #fad027;
-        color: rgb(0, 0, 0);
+        background: #070707;
+        color: rgb(255, 255, 255);
       }
     }
   }

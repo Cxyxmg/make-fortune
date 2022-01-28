@@ -6,11 +6,12 @@
       <Notes
         @update:value="onUpdateNotes"
         fieldName="备注"
+        :value="record.notes"
         placeholder="在这里输入备注"
       />
     </div>
+    <Tags @updata:value="record.tags =$event"/>
 
-    <Tags />
   </Layout>
 </template>
 <script lang="ts">
@@ -54,7 +55,12 @@ export default class Money extends Vue {
     this.record.notes = value;
   }
   saveRecord() {
+    if(this.record.tags.length ===0 || !this.record.tags){
+      window.alert("请选择添加一个标签")
+      return
+    }
     this.$store.commit("createRecord", this.record);
+    this.record.notes =""
   }
 }
 </script>

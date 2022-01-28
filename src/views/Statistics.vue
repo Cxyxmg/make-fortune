@@ -1,7 +1,7 @@
 <template>
   <layout>
     <tab class-prefix="types" :dataSoure="array2" :value.sync="types" />
-    <ol>
+    <ol v-if="result.length >0">
       <li v-for="(group, index) in result" :key="index">
         <h3 class="title">{{ beautify( group.title )}} <span>￥{{group.total}}</span></h3>
         <ol>
@@ -13,6 +13,9 @@
         </ol>
       </li>
     </ol>
+    <div v-else class="jilu">
+      <span>目前没有相关记录</span>
+    </div>
   </layout>
 </template>
 
@@ -29,7 +32,7 @@ import clone from "@/lib/clone"
 })
 export default class Statistics extends Vue {
   tagString(tags: Tag[]) {
-    return tags.length === 0 ? "无" : tags.join(",");
+    return tags.length === 0 ? "无" : tags.map(item =>item.name).join("，");
   }
   beautify(string:string){
     const now =dayjs()
@@ -54,8 +57,8 @@ export default class Statistics extends Vue {
   }
   get result() {
     const { recordList } = this;
-    if(recordList.length ===0){return []}
     const newlist = clone(recordList).filter(r =>r.type===this.types).sort((a:any,b:any)=>dayjs(b.creatAt).valueOf()-dayjs(a.creatAt).valueOf())
+    if(newlist.length ===0){return []}
    type grou={title:string ,total?:number ,items:RecordItem[]}[]
    const groupedList:grou=[{title:dayjs(newlist[0].creatAt).format('YYYY-M-D'),items:[newlist[0]]}]
     for(let i =1 ;i<newlist.length ;i++){
@@ -69,10 +72,8 @@ export default class Statistics extends Vue {
     }
     groupedList.map(group =>{
       group.total=group.items.reduce((sum,item)=>{
-      
         return sum +item.amount},0)
       })
-
    return groupedList
   }
   mounted() {
@@ -121,5 +122,9 @@ export default class Statistics extends Vue {
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
+}
+.jilu{
+  padding: 16px;
+  text-align: center;
 }
 </style>

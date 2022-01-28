@@ -24,7 +24,8 @@ type dataSoureitem={text:string,value:string}
 
 <style lang="scss" scoped>
 .tabs {
-  background: rgb(197,195,197);
+  background: rgb(207, 207, 207);
+  // background: #000;
   display: flex;
   text-align: center;
   font-size: 24px;
@@ -41,7 +42,7 @@ type dataSoureitem={text:string,value:string}
         position: absolute;
         width: 100%;
         height: 4px;
-        background: #000000;
+        background: #8a8a8a;
         bottom: 0;
       }
     }
