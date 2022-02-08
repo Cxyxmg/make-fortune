@@ -4,10 +4,17 @@
     <tab :dataSoure="array2" :value.sync="record.type"/>
     <div class="Noteswaper">
       <Notes
-        @update:value="onUpdateNotes"
         fieldName="备注"
-        :value="record.notes"
+        :value.sync="record.notes"
         placeholder="在这里输入备注"
+      />
+    </div>
+    <div class="Noteswaper">
+      <Notes
+        fieldName="日期"
+        :value.sync="record.creatAt"
+        type="date"
+        placeholder="在这里输入日期"
       />
     </div>
     <Tags @updata:value="record.tags =$event"/>
@@ -27,7 +34,7 @@ type RecordItem = {
   notes: string;
   amount: number;
   type: string;
-  creatAt?: Date;
+  creatAt?: string;
 };
 
 @Component({
@@ -39,6 +46,7 @@ export default class Money extends Vue {
     notes: "",
     amount: 0,
     type: "-",
+    creatAt:new Date().toISOString(),
   };
      array2=[
         {text:"支出",value:"-"},

@@ -49,7 +49,7 @@ export default new Vuex.Store({
     },
     createRecord(state, record) {
       const record2: RecordItem = clone(record)
-      record2.creatAt = new Date()
+      record2.creatAt = record2.creatAt ||new Date().toISOString()
       state.recordList.push(record2)
       localStorage.setItem("recordList", JSON.stringify(state.recordList));
       window.alert("已保存")
